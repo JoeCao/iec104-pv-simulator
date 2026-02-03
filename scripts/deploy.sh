@@ -1,6 +1,8 @@
 #!/bin/bash
 #
 # 光伏模拟器部署脚本
+# 本地交叉编译后上传到服务器
+#
 # 用法: ./deploy.sh [init|update|status]
 #
 
@@ -8,13 +10,12 @@ set -e
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
-LIB_DIR="$PROJECT_DIR/.."
-DIST_DIR="$PROJECT_DIR/../../../dist"
+DIST_DIR="$PROJECT_DIR/dist"
+BINARY="$DIST_DIR/pv_simulator-linux-x86_64"
 
 # 服务器配置 (可通过环境变量覆盖)
 REMOTE_HOST="${PV_REMOTE_HOST:-root@8.140.239.5}"
 REMOTE_DIR="${PV_REMOTE_DIR:-/opt/pv_simulator}"
-REMOTE_LIB60870="${PV_REMOTE_LIB60870:-/root/lib60870}"
 
 # 颜色输出
 RED='\033[0;31m'
@@ -42,57 +43,56 @@ check_ssh() {
     log_info "SSH 连接正常"
 }
 
+# 本地交叉编译
+do_build() {
+    log_step "本地交叉编译 Linux x86_64 版本..."
+
+    if ! command -v zig &>/dev/null; then
+        log_error "需要安装 zig: brew install zig"
+        exit 1
+    fi
+
+    cd "$PROJECT_DIR"
+    make linux
+
+    if [ ! -f "$BINARY" ]; then
+        log_error "编译失败: $BINARY 不存在"
+        exit 1
+    fi
+
+    log_info "编译成功: $BINARY"
+}
+
 # 首次初始化部署
 do_init() {
     log_info "========== 首次部署初始化 =========="
     echo ""
 
+    # 1. 本地编译
+    do_build
+
     check_ssh
 
-    # 1. 在服务器上安装依赖
-    log_step "安装服务器依赖..."
-    ssh "$REMOTE_HOST" "apt-get update && apt-get install -y build-essential screen git" || true
-
-    # 2. 克隆 lib60870
-    log_step "克隆 lib60870 库..."
-    ssh "$REMOTE_HOST" "
-        if [ -d '$REMOTE_LIB60870' ]; then
-            echo 'lib60870 已存在，更新中...'
-            cd '$REMOTE_LIB60870' && git pull
-        else
-            git clone https://github.com/mz-automation/lib60870.git '$REMOTE_LIB60870'
-        fi
-    "
-
-    # 3. 编译 lib60870
-    log_step "编译 lib60870..."
-    ssh "$REMOTE_HOST" "cd '$REMOTE_LIB60870/lib60870-C' && make clean && make"
-
-    # 4. 创建部署目录
-    log_step "创建部署目录..."
+    # 2. 创建远程目录
+    log_step "创建远程目录..."
     ssh "$REMOTE_HOST" "mkdir -p '$REMOTE_DIR/scripts'"
 
-    # 5. 上传源码和脚本
-    log_step "上传源码..."
-    scp "$PROJECT_DIR/pv_simulator_lib60870.c" "$REMOTE_HOST:$REMOTE_LIB60870/lib60870-C/examples/"
-    scp "$PROJECT_DIR/PV_SIMULATOR_README.md" "$REMOTE_HOST:$REMOTE_DIR/"
+    # 3. 上传二进制文件和脚本
+    log_step "上传文件..."
+    scp "$BINARY" "$REMOTE_HOST:$REMOTE_DIR/pv_simulator"
+    scp "$PROJECT_DIR/docs/PV_SIMULATOR_README.md" "$REMOTE_HOST:$REMOTE_DIR/" 2>/dev/null || true
+    scp "$PROJECT_DIR/docs/POINT_TABLE.md" "$REMOTE_HOST:$REMOTE_DIR/" 2>/dev/null || true
     scp "$SCRIPT_DIR/pv_ctl.sh" "$REMOTE_HOST:$REMOTE_DIR/scripts/"
 
-    # 6. 编译
-    log_step "编译模拟器..."
+    # 4. 设置权限和软链接
+    log_step "配置权限..."
     ssh "$REMOTE_HOST" "
-        cd '$REMOTE_LIB60870/lib60870-C'
-        gcc -o '$REMOTE_DIR/pv_simulator' examples/pv_simulator_lib60870.c \
-            -Isrc/inc/api -Isrc/hal/inc -Lbuild -llib60870 -lpthread -lm
         chmod +x '$REMOTE_DIR/pv_simulator'
         chmod +x '$REMOTE_DIR/scripts/pv_ctl.sh'
+        ln -sf '$REMOTE_DIR/scripts/pv_ctl.sh' /usr/local/bin/pv_ctl
     "
 
-    # 7. 创建软链接
-    log_step "创建软链接..."
-    ssh "$REMOTE_HOST" "ln -sf '$REMOTE_DIR/scripts/pv_ctl.sh' /usr/local/bin/pv_ctl"
-
-    # 8. 开放防火墙端口
+    # 5. 开放防火墙端口
     log_step "配置防火墙..."
     ssh "$REMOTE_HOST" "ufw allow 2404/tcp 2>/dev/null || iptables -A INPUT -p tcp --dport 2404 -j ACCEPT 2>/dev/null || true"
 
@@ -110,29 +110,24 @@ do_update() {
     log_info "========== 更新部署 =========="
     echo ""
 
+    # 1. 本地编译
+    do_build
+
     check_ssh
 
-    # 1. 停止运行中的模拟器
+    # 2. 停止运行中的模拟器
     log_step "停止模拟器..."
     ssh "$REMOTE_HOST" "pv_ctl stop 2>/dev/null || pkill -f pv_simulator || true"
 
-    # 2. 上传新源码
-    log_step "上传源码..."
-    scp "$PROJECT_DIR/pv_simulator_lib60870.c" "$REMOTE_HOST:$REMOTE_LIB60870/lib60870-C/examples/"
-    scp "$PROJECT_DIR/PV_SIMULATOR_README.md" "$REMOTE_HOST:$REMOTE_DIR/" 2>/dev/null || true
+    # 3. 上传新二进制文件
+    log_step "上传文件..."
+    scp "$BINARY" "$REMOTE_HOST:$REMOTE_DIR/pv_simulator"
     scp "$SCRIPT_DIR/pv_ctl.sh" "$REMOTE_HOST:$REMOTE_DIR/scripts/"
 
-    # 3. 重新编译
-    log_step "重新编译..."
-    ssh "$REMOTE_HOST" "
-        cd '$REMOTE_LIB60870/lib60870-C'
-        gcc -o '$REMOTE_DIR/pv_simulator' examples/pv_simulator_lib60870.c \
-            -Isrc/inc/api -Isrc/hal/inc -Lbuild -llib60870 -lpthread -lm
-        chmod +x '$REMOTE_DIR/pv_simulator'
-        chmod +x '$REMOTE_DIR/scripts/pv_ctl.sh'
-    "
+    # 4. 设置权限
+    ssh "$REMOTE_HOST" "chmod +x '$REMOTE_DIR/pv_simulator' '$REMOTE_DIR/scripts/pv_ctl.sh'"
 
-    # 4. 重启模拟器
+    # 5. 重启模拟器
     log_step "重启模拟器..."
     ssh "$REMOTE_HOST" "pv_ctl start"
 
@@ -184,15 +179,22 @@ do_restart() {
     ssh "$REMOTE_HOST" "pv_ctl restart"
 }
 
+# 仅编译不上传
+do_build_only() {
+    do_build
+    log_info "编译完成，二进制文件: $BINARY"
+}
+
 # 显示帮助
 show_help() {
-    echo "光伏模拟器部署脚本"
+    echo "光伏模拟器部署脚本 (本地交叉编译)"
     echo ""
     echo "用法: $0 <命令>"
     echo ""
     echo "部署命令:"
-    echo "  init    - 首次部署 (克隆库、编译、配置)"
-    echo "  update  - 更新部署 (上传新代码、重新编译)"
+    echo "  init    - 首次部署 (编译、上传、配置)"
+    echo "  update  - 更新部署 (重新编译、上传、重启)"
+    echo "  build   - 仅本地编译，不上传"
     echo ""
     echo "远程控制:"
     echo "  start   - 启动远程模拟器"
@@ -208,6 +210,7 @@ show_help() {
     echo "示例:"
     echo "  $0 init                           # 首次部署"
     echo "  $0 update                         # 更新代码"
+    echo "  $0 build                          # 仅编译"
     echo "  PV_REMOTE_HOST=user@host $0 init  # 部署到其他服务器"
 }
 
@@ -218,6 +221,9 @@ case "$1" in
         ;;
     update)
         do_update
+        ;;
+    build)
+        do_build_only
         ;;
     status)
         do_status

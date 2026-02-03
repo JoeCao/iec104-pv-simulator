@@ -8,9 +8,9 @@ set -e
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
-LIB_DIR="$PROJECT_DIR/.."
-SRC_FILE="$PROJECT_DIR/pv_simulator_lib60870.c"
-OUTPUT_DIR="$PROJECT_DIR/../../../dist"
+LIB_DIR="$PROJECT_DIR/lib/lib60870/lib60870-C"
+SRC_FILE="$PROJECT_DIR/src/pv_simulator.c"
+OUTPUT_DIR="$PROJECT_DIR/dist"
 
 # 颜色输出
 RED='\033[0;31m'
@@ -145,10 +145,10 @@ build_all() {
 
     # 复制一份到项目根目录
     if [ "$os" = "Darwin" ]; then
-        cp "$OUTPUT_DIR/pv_simulator-darwin-arm64" "$LIB_DIR/../pv_simulator" 2>/dev/null || \
-        cp "$OUTPUT_DIR/pv_simulator-darwin-x86_64" "$LIB_DIR/../pv_simulator" 2>/dev/null
+        cp "$OUTPUT_DIR/pv_simulator-darwin-arm64" "$PROJECT_DIR/pv_simulator" 2>/dev/null || \
+        cp "$OUTPUT_DIR/pv_simulator-darwin-x86_64" "$PROJECT_DIR/pv_simulator" 2>/dev/null
     else
-        cp "$OUTPUT_DIR/pv_simulator-linux-$current_arch" "$LIB_DIR/../pv_simulator" 2>/dev/null
+        cp "$OUTPUT_DIR/pv_simulator-linux-$current_arch" "$PROJECT_DIR/pv_simulator" 2>/dev/null
     fi
 
     log_info "========== 编译完成 =========="
@@ -163,7 +163,7 @@ clean() {
     cd "$LIB_DIR"
     make clean >/dev/null 2>&1 || true
     rm -rf "$OUTPUT_DIR"
-    rm -f "$LIB_DIR/../pv_simulator"
+    rm -f "$PROJECT_DIR/pv_simulator"
     log_info "清理完成"
 }
 

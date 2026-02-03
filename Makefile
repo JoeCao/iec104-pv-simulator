@@ -103,6 +103,30 @@ run: all
 	@echo "启动 PV 模拟器..."
 	@$(PROJECT_DIR)/$(TARGET)
 
+# 交叉编译 Linux x86_64 (需要 zig)
+.PHONY: linux
+linux:
+	@echo "交叉编译 Linux x86_64 版本 (使用 zig)..."
+	@if ! command -v zig >/dev/null 2>&1; then \
+		echo "错误: 需要安装 zig (brew install zig)"; \
+		exit 1; \
+	fi
+	@cd $(LIB_DIR) && $(MAKE) clean > /dev/null 2>&1 || true
+	@cd $(LIB_DIR) && $(MAKE) TARGET=POSIX \
+		CC="zig cc -target x86_64-linux-gnu" \
+		AR="zig ar" \
+		RANLIB="zig ranlib"
+	@mkdir -p $(DIST_DIR)
+	@zig cc -target x86_64-linux-gnu -O2 \
+		-o $(DIST_DIR)/$(TARGET)-linux-x86_64 \
+		$(SRC_FILE) \
+		$(INCLUDES) \
+		$(LIB_DIR)/build/liblib60870.a \
+		-lc -lpthread -lm
+	@echo "交叉编译完成: $(DIST_DIR)/$(TARGET)-linux-x86_64"
+	@file $(DIST_DIR)/$(TARGET)-linux-x86_64
+	@ls -lh $(DIST_DIR)/$(TARGET)-linux-x86_64
+
 # 帮助
 .PHONY: help
 help:
@@ -115,6 +139,7 @@ help:
 	@echo "  lib        - 仅编译 lib60870 库"
 	@echo "  simulator  - 仅编译模拟器"
 	@echo "  universal  - 编译 macOS Universal Binary (arm64 + x86_64)"
+	@echo "  linux      - 交叉编译 Linux x86_64 版本 (需要 zig)"
 	@echo "  clean      - 清理编译产物"
 	@echo "  install    - 安装到 /usr/local/bin"
 	@echo "  uninstall  - 从 /usr/local/bin 卸载"
@@ -125,4 +150,5 @@ help:
 	@echo "  make              # 编译"
 	@echo "  make ARCH=arm64   # 指定架构编译 (macOS)"
 	@echo "  make universal    # 编译 Universal Binary"
+	@echo "  make linux        # 交叉编译 Linux 版本"
 	@echo "  make run          # 编译并运行"

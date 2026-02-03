@@ -12,8 +12,8 @@ if [ -f "/opt/pv_simulator/pv_simulator" ]; then
 else
     # 本地开发模式
     SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-    PV_DIR="$(dirname "$(dirname "$SCRIPT_DIR")")"
-    PV_BIN="$PV_DIR/../pv_simulator"
+    PV_DIR="$(dirname "$SCRIPT_DIR")"
+    PV_BIN="$PV_DIR/pv_simulator"
 fi
 
 PV_LOG="/var/log/pv_simulator.log"

@@ -11,11 +11,13 @@
 ├── lib/
 │   └── lib60870/                   # IEC 60870-5-104 协议库 (GPLv3)
 ├── docs/
-│   └── PV_SIMULATOR_README.md      # 详细文档
+│   ├── PV_SIMULATOR_README.md      # 详细文档
+│   └── POINT_TABLE.md              # 点位表与变化规则
 ├── scripts/
 │   ├── build.sh                    # 多平台编译脚本
-│   ├── deploy.sh                   # 部署脚本
+│   ├── deploy.sh                   # 部署脚本 (本地交叉编译)
 │   └── pv_ctl.sh                   # 服务控制脚本
+├── dist/                           # 编译输出目录
 ├── Makefile                        # 构建配置
 └── README.md                       # 本文件
 ```
@@ -39,6 +41,8 @@
   - IOA 200-205: 电站汇总数据
   - IOA 1001-1003: 逆变器运行状态
   - IOA 2001-2003: 逆变器控制命令
+
+详细点位表请参阅 [docs/POINT_TABLE.md](docs/POINT_TABLE.md)
 
 ## 快速开始
 
@@ -66,10 +70,10 @@ make
 
 ## 编译选项
 
-### 使用 Makefile
+### 本地编译 (macOS/Linux)
 
 ```bash
-make              # 编译（默认架构）
+make              # 编译（当前平台）
 make clean        # 清理
 make run          # 编译并运行
 make install      # 安装到 /usr/local/bin
@@ -82,6 +86,20 @@ make help         # 显示帮助
 make universal    # 编译 arm64 + x86_64 通用二进制
 ```
 
+### 交叉编译 Linux x86_64
+
+在 macOS 上交叉编译 Linux 版本（需要安装 zig）：
+
+```bash
+# 安装 zig (仅首次)
+brew install zig
+
+# 交叉编译
+make linux
+```
+
+输出文件: `dist/pv_simulator-linux-x86_64`
+
 ### 使用编译脚本
 
 ```bash
@@ -91,10 +109,73 @@ make universal    # 编译 arm64 + x86_64 通用二进制
 ./scripts/build.sh clean    # 清理
 ```
 
+## 部署到服务器
+
+deploy.sh 脚本支持本地交叉编译后直接上传到 Linux 服务器，无需在服务器上安装编译环境。
+
+### 配置
+
+通过环境变量配置目标服务器：
+
+```bash
+export PV_REMOTE_HOST="root@your-server-ip"  # 默认: root@8.140.239.5
+export PV_REMOTE_DIR="/opt/pv_simulator"     # 默认: /opt/pv_simulator
+```
+
+### 部署命令
+
+```bash
+# 首次部署 (编译 + 上传 + 配置)
+./scripts/deploy.sh init
+
+# 更新部署 (重新编译 + 上传 + 重启)
+./scripts/deploy.sh update
+
+# 仅本地编译，不上传
+./scripts/deploy.sh build
+```
+
+### 远程控制
+
+```bash
+./scripts/deploy.sh start    # 启动
+./scripts/deploy.sh stop     # 停止
+./scripts/deploy.sh restart  # 重启
+./scripts/deploy.sh status   # 查看状态
+./scripts/deploy.sh log      # 查看日志
+```
+
+或者 SSH 到服务器后使用 `pv_ctl` 命令：
+
+```bash
+ssh root@your-server
+pv_ctl start
+pv_ctl status
+pv_ctl log
+```
+
+## 在 Linux 上编译
+
+本项目可以直接在 Linux 上编译，无需额外配置：
+
+```bash
+# 克隆项目
+git clone https://github.com/JoeCao/iec104-pv-simulator.git
+cd iec104-pv-simulator
+
+# 编译
+make
+
+# 运行
+./pv_simulator
+```
+
+lib60870 的 Makefile 会自动检测操作系统并选择正确的 HAL 实现。
+
 ## 详细文档
 
-完整的功能说明、数据点配置、协议交互示例，请参阅：
-- [docs/PV_SIMULATOR_README.md](docs/PV_SIMULATOR_README.md)
+- [docs/PV_SIMULATOR_README.md](docs/PV_SIMULATOR_README.md) - 功能说明、协议交互示例
+- [docs/POINT_TABLE.md](docs/POINT_TABLE.md) - 完整点位表、数据变化规则
 
 ## 依赖
 
@@ -107,6 +188,7 @@ make universal    # 编译 arm64 + x86_64 通用二进制
 - **编译器**: GCC 或 Clang
 - **操作系统**: Linux, macOS, BSD
 - **依赖库**: pthread, math (标准库)
+- **交叉编译** (可选): zig (`brew install zig`)
 
 ## 许可证
 
