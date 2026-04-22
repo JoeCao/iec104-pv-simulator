@@ -31,7 +31,8 @@
 │   ├── build.sh                    # 多平台编译脚本
 │   ├── deploy.sh                   # 部署脚本 (本地交叉编译)
 │   ├── pv_ctl.sh                   # 服务控制脚本
-│   └── gen_sim_rules_csv.py        # 生成 sim_rules.csv（默认 1 万点）
+│   ├── gen_sim_rules_csv.py        # 生成 sim_rules.csv（默认 1 万点）
+│   └── export_zdaq_xlsx.py         # 导出 zdaq 可导入 xlsx 模板
 ├── dist/                           # 编译输出目录
 ├── Makefile                        # 构建配置
 └── README.md                       # 本文件
@@ -100,6 +101,15 @@ python3 scripts/gen_sim_rules_csv.py
 python3 scripts/gen_sim_rules_csv.py --target-points 10000 --inverters 300 --output config/sim_rules.csv
 ```
 
+### 导出 zdaq 导入模板
+
+```bash
+# 从 sim_rules.csv 导出 zdaq 导入模板（前 11 列）
+python3 scripts/export_zdaq_xlsx.py \
+  --input config/sim_rules.csv \
+  --output scripts/IEC104-tags.generated.xlsx
+```
+
 ### 测试连接
 
 使用 IEC 104 客户端连接到模拟器端口（默认 `localhost:2404`），发送总召唤命令即可获取当前 CSV 定义的所有读点。
@@ -156,6 +166,8 @@ deploy.sh 脚本支持本地交叉编译后直接上传到 Linux 服务器，无
 ```bash
 export PV_REMOTE_HOST="root@your-server-ip"  # 默认: root@8.140.239.5
 export PV_REMOTE_DIR="/opt/pv_simulator"     # 默认: /opt/pv_simulator
+export PV_REMOTE_CSV="/opt/pv_simulator/config/sim_rules.csv"  # 默认: $PV_REMOTE_DIR/config/sim_rules.csv
+export PV_REMOTE_PORT="2404"                                   # 默认: 2404
 ```
 
 ### 部署命令
@@ -185,9 +197,16 @@ export PV_REMOTE_DIR="/opt/pv_simulator"     # 默认: /opt/pv_simulator
 
 ```bash
 ssh root@your-server
-pv_ctl start
+pv_ctl start /opt/pv_simulator/config/sim_rules.csv 2404
 pv_ctl status
 pv_ctl log
+```
+
+`pv_ctl` 参数说明：
+
+```bash
+pv_ctl start [csv_path] [port]
+pv_ctl restart [csv_path] [port]
 ```
 
 ## 在 Linux 上编译
