@@ -209,6 +209,16 @@ pv_ctl start [csv_path] [port]
 pv_ctl restart [csv_path] [port]
 ```
 
+### 日志轮转（已启用方案 A）
+
+`deploy.sh init/update` 会自动下发 `logrotate` 配置到远程服务器：
+
+- 配置文件：`/etc/logrotate.d/pv_simulator`
+- 日志文件：`/var/log/pv_simulator.log`
+- 轮转策略：`size 100M`、保留 `14` 份、`compress`、`copytruncate`
+
+这样模拟器长期运行时日志会自动轮转，避免日志无限增长占满磁盘。
+
 ## 在 Linux 上编译
 
 本项目可以直接在 Linux 上编译，无需额外配置：

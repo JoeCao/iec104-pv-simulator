@@ -31,6 +31,24 @@ log_warn() { echo -e "${YELLOW}[WARN]${NC} $1"; }
 log_error() { echo -e "${RED}[ERROR]${NC} $1"; }
 log_step() { echo -e "${BLUE}[STEP]${NC} $1"; }
 
+# 安装 logrotate 配置（方案 A）
+install_logrotate() {
+    log_step "配置日志轮转 (logrotate)..."
+
+    scp "$SCRIPT_DIR/pv_simulator.logrotate" "$REMOTE_HOST:/tmp/pv_simulator.logrotate"
+    ssh "$REMOTE_HOST" "
+        if [ -d /etc/logrotate.d ]; then
+            mv /tmp/pv_simulator.logrotate /etc/logrotate.d/pv_simulator
+            chmod 644 /etc/logrotate.d/pv_simulator
+            logrotate -d /etc/logrotate.d/pv_simulator >/dev/null 2>&1 || true
+            echo 'logrotate 已配置: /etc/logrotate.d/pv_simulator'
+        else
+            echo '未找到 /etc/logrotate.d，跳过 logrotate 安装'
+            rm -f /tmp/pv_simulator.logrotate
+        fi
+    "
+}
+
 # 检查 SSH 连接
 check_ssh() {
     log_step "检查 SSH 连接..."
@@ -96,9 +114,12 @@ do_init() {
         ln -sf '$REMOTE_DIR/scripts/pv_ctl.sh' /usr/local/bin/pv_ctl
     "
 
-    # 5. 开放防火墙端口
+    # 5. 配置日志轮转
+    install_logrotate
+
+    # 6. 开放防火墙端口
     log_step "配置防火墙..."
-    ssh "$REMOTE_HOST" "ufw allow 2404/tcp 2>/dev/null || iptables -A INPUT -p tcp --dport 2404 -j ACCEPT 2>/dev/null || true"
+    ssh "$REMOTE_HOST" "ufw allow ${REMOTE_PORT}/tcp 2>/dev/null || iptables -A INPUT -p tcp --dport ${REMOTE_PORT} -j ACCEPT 2>/dev/null || true"
 
     echo ""
     log_info "========== 初始化完成 =========="
@@ -123,7 +144,11 @@ do_update() {
 
     # 2. 停止运行中的模拟器
     log_step "停止模拟器..."
-    ssh "$REMOTE_HOST" "pv_ctl stop 2>/dev/null || pkill -f pv_simulator || true"
+    # 注意：不要在这里使用 "pkill -f pv_simulator" 字样，老版本 pv_ctl 可能误匹配并中断当前 SSH 会话
+    ssh "$REMOTE_HOST" "pv_ctl stop >/dev/null 2>&1 || true"
+
+    # 确保远程目录存在（兼容历史版本部署目录结构）
+    ssh "$REMOTE_HOST" "mkdir -p '$REMOTE_DIR/scripts' \"$(dirname "$REMOTE_CSV")\""
 
     # 3. 上传新二进制文件
     log_step "上传文件..."
@@ -131,10 +156,13 @@ do_update() {
     scp "$PROJECT_DIR/config/sim_rules.csv" "$REMOTE_HOST:$REMOTE_CSV"
     scp "$SCRIPT_DIR/pv_ctl.sh" "$REMOTE_HOST:$REMOTE_DIR/scripts/"
 
-    # 4. 设置权限
+    # 4. 更新日志轮转配置
+    install_logrotate
+
+    # 5. 设置权限
     ssh "$REMOTE_HOST" "chmod +x '$REMOTE_DIR/pv_simulator' '$REMOTE_DIR/scripts/pv_ctl.sh'"
 
-    # 5. 重启模拟器
+    # 6. 重启模拟器
     log_step "重启模拟器..."
     ssh "$REMOTE_HOST" "pv_ctl start '$REMOTE_CSV' '$REMOTE_PORT'"
 
