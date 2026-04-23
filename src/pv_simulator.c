@@ -63,6 +63,8 @@ static SimPoint* points = NULL;
 static int point_count = 0;
 static int read_point_count = 0;
 static int write_point_count = 0;
+static int spontaneous_sent_total = 0;
+static int spontaneous_sent_window = 0;
 
 static void sigint_handler(int signalId)
 {
@@ -286,6 +288,8 @@ static void send_spontaneous_float(SimPoint* p)
     CS101_ASDU_destroy(asdu);
     p->last_reported_value = p->value;
     p->last_report_time = time(NULL);
+    spontaneous_sent_total++;
+    spontaneous_sent_window++;
 }
 
 static void send_spontaneous_bit(SimPoint* p)
@@ -301,6 +305,8 @@ static void send_spontaneous_bit(SimPoint* p)
     CS101_ASDU_destroy(asdu);
     p->last_reported_bit = bit_val;
     p->last_report_time = time(NULL);
+    spontaneous_sent_total++;
+    spontaneous_sent_window++;
 }
 
 static float eval_formula_simple(const char* formula)
@@ -556,7 +562,10 @@ int main(int argc, char** argv)
 
         if (++counter >= 10) {
             counter = 0;
-            printf("[状态] 总点数=%d 读点=%d 写点=%d\n", point_count, read_point_count, write_point_count);
+            printf("[状态] 总点数=%d 读点=%d 写点=%d | COT=3(10s)=%d | COT=3(total)=%d\n",
+                   point_count, read_point_count, write_point_count,
+                   spontaneous_sent_window, spontaneous_sent_total);
+            spontaneous_sent_window = 0;
         }
     }
 

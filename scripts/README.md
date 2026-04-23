@@ -9,6 +9,7 @@
 | `build.sh` | 多平台编译脚本 |
 | `deploy.sh` | 服务器部署脚本 |
 | `pv_ctl.sh` | 启停控制脚本 |
+| `dev_macos_ctl.sh` | macOS 本机开发控制脚本 |
 
 ## build.sh - 编译脚本
 
@@ -81,6 +82,18 @@ PV_REMOTE_DIR=/home/user/pv_sim ./deploy.sh init
 ./pv_ctl.sh restart  # 重启
 ./pv_ctl.sh status   # 查看状态
 ./pv_ctl.sh log      # 查看日志
+```
+
+## dev_macos_ctl.sh - macOS 本机控制脚本
+
+用于本机开发调试，避免与服务器版运维脚本混用。
+
+```bash
+./dev_macos_ctl.sh start                           # 启动（默认 config/sim_rules.csv:2404）
+./dev_macos_ctl.sh start config/sim_rules.csv 2504 # 指定配置和端口
+./dev_macos_ctl.sh status                          # 状态
+./dev_macos_ctl.sh log                             # 日志
+./dev_macos_ctl.sh stop                            # 停止
 ```
 
 ## 典型工作流

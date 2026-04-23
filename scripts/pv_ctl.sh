@@ -51,7 +51,13 @@ log_error() {
 }
 
 get_pid() {
-    pgrep -f "$PV_BIN" 2>/dev/null
+    local pids
+    pids="$(pgrep -f "$PV_BIN" 2>/dev/null || true)"
+    if [ -z "$pids" ]; then
+        # 兼容手工从项目目录启动: ./pv_simulator config/sim_rules.csv
+        pids="$(pgrep -f '(^|/)pv_simulator( |$)' 2>/dev/null || true)"
+    fi
+    echo "$pids"
 }
 
 do_start() {
@@ -84,7 +90,7 @@ do_start() {
 
     # 使用 screen 在后台运行
     cd "$(dirname "$PV_BIN")"
-    screen -dmS "$SCREEN_NAME" bash -c "'$PV_BIN' '$csv_path' '$port' 2>&1 | tee -a '$PV_LOG'"
+    screen -dmS "$SCREEN_NAME" bash -c "stdbuf -oL -eL '$PV_BIN' '$csv_path' '$port' 2>&1 | tee -a '$PV_LOG'"
 
     sleep 2
     pid=$(get_pid)
@@ -109,7 +115,9 @@ do_stop() {
     fi
 
     log_info "停止光伏模拟器 (PID: $pid)..."
-    kill "$pid" 2>/dev/null
+    for p in $pid; do
+        kill "$p" 2>/dev/null || true
+    done
 
     # 等待进程退出
     for i in {1..10}; do
@@ -123,7 +131,9 @@ do_stop() {
     pid=$(get_pid)
     if [ -n "$pid" ]; then
         log_warn "进程未响应，强制终止..."
-        kill -9 "$pid" 2>/dev/null
+        for p in $pid; do
+            kill -9 "$p" 2>/dev/null || true
+        done
     fi
 
     rm -f "$PID_FILE" 2>/dev/null
@@ -158,7 +168,9 @@ do_status() {
 
         # 显示运行时间
         if command -v ps &>/dev/null; then
-            local etime=$(ps -p "$pid" -o etime= 2>/dev/null | tr -d ' ')
+            local first_pid
+            first_pid="$(echo "$pid" | head -n 1 | tr -d ' ')"
+            local etime=$(ps -p "$first_pid" -o etime= 2>/dev/null | tr -d ' ')
             if [ -n "$etime" ]; then
                 log_info "运行时间: $etime"
             fi
