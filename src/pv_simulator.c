@@ -66,6 +66,23 @@ static int write_point_count = 0;
 static int spontaneous_sent_total = 0;
 static int spontaneous_sent_window = 0;
 
+static int get_env_int_with_default(const char* key, int default_value, int min_value, int max_value)
+{
+    const char* raw = getenv(key);
+    if (raw == NULL || *raw == '\0')
+        return default_value;
+
+    char* endptr = NULL;
+    long parsed = strtol(raw, &endptr, 10);
+    if (endptr == raw || *endptr != '\0')
+        return default_value;
+    if (parsed < min_value)
+        return min_value;
+    if (parsed > max_value)
+        return max_value;
+    return (int) parsed;
+}
+
 static void sigint_handler(int signalId)
 {
     (void) signalId;
@@ -506,6 +523,8 @@ int main(int argc, char** argv)
 {
     const char* csv_path = "config/sim_rules.csv";
     int local_port = 2404;
+    int low_prio_queue_size = get_env_int_with_default("PV_QUEUE_LOW", 512, 10, 50000);
+    int high_prio_queue_size = get_env_int_with_default("PV_QUEUE_HIGH", 128, 10, 50000);
 
     if (argc >= 2)
         csv_path = argv[1];
@@ -533,7 +552,7 @@ int main(int argc, char** argv)
     printf("已加载点位: %d (读=%d, 写=%d)\n", point_count, read_point_count, write_point_count);
     printf("配置文件: %s\n\n", csv_path);
 
-    slave = CS104_Slave_create(10, 10);
+    slave = CS104_Slave_create(low_prio_queue_size, high_prio_queue_size);
     CS104_Slave_setLocalAddress(slave, "0.0.0.0");
     CS104_Slave_setLocalPort(slave, local_port);
     CS104_Slave_setInterrogationHandler(slave, interrogationHandler, NULL);
@@ -552,6 +571,8 @@ int main(int argc, char** argv)
     }
 
     printf("服务器启动成功: 0.0.0.0:%d, CA=1\n", local_port);
+    printf("ASDU 队列: low=%d high=%d (可通过 PV_QUEUE_LOW/PV_QUEUE_HIGH 覆盖)\n",
+           low_prio_queue_size, high_prio_queue_size);
     printf("运行中... 按 Ctrl+C 停止\n");
 
     int counter = 0;
