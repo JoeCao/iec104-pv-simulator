@@ -1,0 +1,1339 @@
+{
+  "actions": [],
+  "events": [],
+  "properties": [
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 600.0,
+          "max": 850.0,
+          "unit": "V"
+        }
+      },
+      "desc": "逆变器1直流电压",
+      "identifier": "INV001_DC_Voltage",
+      "name": "逆变器1直流电压"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 0.0,
+          "max": 60.0,
+          "unit": "A"
+        }
+      },
+      "desc": "逆变器1直流电流",
+      "identifier": "INV001_DC_Current",
+      "name": "逆变器1直流电流"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "unit": "kW"
+        }
+      },
+      "desc": "逆变器1直流功率",
+      "identifier": "INV001_DC_Power",
+      "name": "逆变器1直流功率"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 380.0,
+          "max": 420.0,
+          "unit": "V"
+        }
+      },
+      "desc": "逆变器1A相电压",
+      "identifier": "INV001_AC_Voltage_A",
+      "name": "逆变器1A相电压"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 380.0,
+          "max": 420.0,
+          "unit": "V"
+        }
+      },
+      "desc": "逆变器1B相电压",
+      "identifier": "INV001_AC_Voltage_B",
+      "name": "逆变器1B相电压"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 380.0,
+          "max": 420.0,
+          "unit": "V"
+        }
+      },
+      "desc": "逆变器1C相电压",
+      "identifier": "INV001_AC_Voltage_C",
+      "name": "逆变器1C相电压"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 0.0,
+          "max": 50.0,
+          "unit": "A"
+        }
+      },
+      "desc": "逆变器1A相电流",
+      "identifier": "INV001_AC_Current_A",
+      "name": "逆变器1A相电流"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 0.0,
+          "max": 50.0,
+          "unit": "A"
+        }
+      },
+      "desc": "逆变器1B相电流",
+      "identifier": "INV001_AC_Current_B",
+      "name": "逆变器1B相电流"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 0.0,
+          "max": 50.0,
+          "unit": "A"
+        }
+      },
+      "desc": "逆变器1C相电流",
+      "identifier": "INV001_AC_Current_C",
+      "name": "逆变器1C相电流"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "unit": "kW"
+        }
+      },
+      "desc": "逆变器1交流有功功率",
+      "identifier": "INV001_AC_Power",
+      "name": "逆变器1交流有功功率"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": -10.0,
+          "max": 10.0,
+          "unit": "kW"
+        }
+      },
+      "desc": "逆变器1无功功率",
+      "identifier": "INV001_Reactive_Power",
+      "name": "逆变器1无功功率"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 0.9,
+          "max": 1.0
+        }
+      },
+      "desc": "逆变器1功率因数",
+      "identifier": "INV001_Power_Factor",
+      "name": "逆变器1功率因数"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 49.8,
+          "max": 50.2,
+          "unit": "Hz"
+        }
+      },
+      "desc": "逆变器1频率",
+      "identifier": "INV001_Frequency",
+      "name": "逆变器1频率"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 20.0,
+          "max": 95.0,
+          "unit": "℃"
+        }
+      },
+      "desc": "逆变器1散热器温度",
+      "identifier": "INV001_Heatsink_Temp",
+      "name": "逆变器1散热器温度"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 10.0,
+          "max": 70.0,
+          "unit": "℃"
+        }
+      },
+      "desc": "逆变器1机柜温度",
+      "identifier": "INV001_Cabinet_Temp",
+      "name": "逆变器1机柜温度"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 15.0,
+          "max": 85.0,
+          "unit": "℃"
+        }
+      },
+      "desc": "逆变器1组件温度",
+      "identifier": "INV001_Module_Temp",
+      "name": "逆变器1组件温度"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 0.5,
+          "max": 5.0
+        }
+      },
+      "desc": "逆变器1绝缘电阻",
+      "identifier": "INV001_Insulation_Resistance",
+      "name": "逆变器1绝缘电阻"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 92.0,
+          "max": 99.5
+        }
+      },
+      "desc": "逆变器1转换效率",
+      "identifier": "INV001_Efficiency",
+      "name": "逆变器1转换效率"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "unit": "kWh"
+        }
+      },
+      "desc": "逆变器1日发电量",
+      "identifier": "INV001_Daily_Energy",
+      "name": "逆变器1日发电量"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "unit": "kWh"
+        }
+      },
+      "desc": "逆变器1总发电量",
+      "identifier": "INV001_Total_Energy",
+      "name": "逆变器1总发电量"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 0.0,
+          "max": 12.0,
+          "unit": "A"
+        }
+      },
+      "desc": "逆变器1组串01电流",
+      "identifier": "INV001_String_01_Current",
+      "name": "逆变器1组串01电流"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 0.0,
+          "max": 12.0,
+          "unit": "A"
+        }
+      },
+      "desc": "逆变器1组串02电流",
+      "identifier": "INV001_String_02_Current",
+      "name": "逆变器1组串02电流"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 0.0,
+          "max": 12.0,
+          "unit": "A"
+        }
+      },
+      "desc": "逆变器1组串03电流",
+      "identifier": "INV001_String_03_Current",
+      "name": "逆变器1组串03电流"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 0.0,
+          "max": 12.0,
+          "unit": "A"
+        }
+      },
+      "desc": "逆变器1组串04电流",
+      "identifier": "INV001_String_04_Current",
+      "name": "逆变器1组串04电流"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 0.0,
+          "max": 12.0,
+          "unit": "A"
+        }
+      },
+      "desc": "逆变器1组串05电流",
+      "identifier": "INV001_String_05_Current",
+      "name": "逆变器1组串05电流"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 0.0,
+          "max": 12.0,
+          "unit": "A"
+        }
+      },
+      "desc": "逆变器1组串06电流",
+      "identifier": "INV001_String_06_Current",
+      "name": "逆变器1组串06电流"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 0.0,
+          "max": 12.0,
+          "unit": "A"
+        }
+      },
+      "desc": "逆变器1组串07电流",
+      "identifier": "INV001_String_07_Current",
+      "name": "逆变器1组串07电流"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 0.0,
+          "max": 12.0,
+          "unit": "A"
+        }
+      },
+      "desc": "逆变器1组串08电流",
+      "identifier": "INV001_String_08_Current",
+      "name": "逆变器1组串08电流"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "bool",
+        "specs": {}
+      },
+      "desc": "逆变器1运行状态",
+      "identifier": "INV001_Status",
+      "name": "逆变器1运行状态"
+    },
+    {
+      "access_mode": "READ_WRITE",
+      "data_type": {
+        "type": "bool",
+        "specs": {}
+      },
+      "desc": "逆变器1启停控制",
+      "identifier": "INV001_Control",
+      "name": "逆变器1启停控制"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 600.0,
+          "max": 850.0,
+          "unit": "V"
+        }
+      },
+      "desc": "逆变器2直流电压",
+      "identifier": "INV002_DC_Voltage",
+      "name": "逆变器2直流电压"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 0.0,
+          "max": 60.0,
+          "unit": "A"
+        }
+      },
+      "desc": "逆变器2直流电流",
+      "identifier": "INV002_DC_Current",
+      "name": "逆变器2直流电流"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "unit": "kW"
+        }
+      },
+      "desc": "逆变器2直流功率",
+      "identifier": "INV002_DC_Power",
+      "name": "逆变器2直流功率"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 380.0,
+          "max": 420.0,
+          "unit": "V"
+        }
+      },
+      "desc": "逆变器2A相电压",
+      "identifier": "INV002_AC_Voltage_A",
+      "name": "逆变器2A相电压"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 380.0,
+          "max": 420.0,
+          "unit": "V"
+        }
+      },
+      "desc": "逆变器2B相电压",
+      "identifier": "INV002_AC_Voltage_B",
+      "name": "逆变器2B相电压"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 380.0,
+          "max": 420.0,
+          "unit": "V"
+        }
+      },
+      "desc": "逆变器2C相电压",
+      "identifier": "INV002_AC_Voltage_C",
+      "name": "逆变器2C相电压"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 0.0,
+          "max": 50.0,
+          "unit": "A"
+        }
+      },
+      "desc": "逆变器2A相电流",
+      "identifier": "INV002_AC_Current_A",
+      "name": "逆变器2A相电流"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 0.0,
+          "max": 50.0,
+          "unit": "A"
+        }
+      },
+      "desc": "逆变器2B相电流",
+      "identifier": "INV002_AC_Current_B",
+      "name": "逆变器2B相电流"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 0.0,
+          "max": 50.0,
+          "unit": "A"
+        }
+      },
+      "desc": "逆变器2C相电流",
+      "identifier": "INV002_AC_Current_C",
+      "name": "逆变器2C相电流"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "unit": "kW"
+        }
+      },
+      "desc": "逆变器2交流有功功率",
+      "identifier": "INV002_AC_Power",
+      "name": "逆变器2交流有功功率"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": -10.0,
+          "max": 10.0,
+          "unit": "kW"
+        }
+      },
+      "desc": "逆变器2无功功率",
+      "identifier": "INV002_Reactive_Power",
+      "name": "逆变器2无功功率"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 0.9,
+          "max": 1.0
+        }
+      },
+      "desc": "逆变器2功率因数",
+      "identifier": "INV002_Power_Factor",
+      "name": "逆变器2功率因数"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 49.8,
+          "max": 50.2,
+          "unit": "Hz"
+        }
+      },
+      "desc": "逆变器2频率",
+      "identifier": "INV002_Frequency",
+      "name": "逆变器2频率"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 20.0,
+          "max": 95.0,
+          "unit": "℃"
+        }
+      },
+      "desc": "逆变器2散热器温度",
+      "identifier": "INV002_Heatsink_Temp",
+      "name": "逆变器2散热器温度"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 10.0,
+          "max": 70.0,
+          "unit": "℃"
+        }
+      },
+      "desc": "逆变器2机柜温度",
+      "identifier": "INV002_Cabinet_Temp",
+      "name": "逆变器2机柜温度"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 15.0,
+          "max": 85.0,
+          "unit": "℃"
+        }
+      },
+      "desc": "逆变器2组件温度",
+      "identifier": "INV002_Module_Temp",
+      "name": "逆变器2组件温度"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 0.5,
+          "max": 5.0
+        }
+      },
+      "desc": "逆变器2绝缘电阻",
+      "identifier": "INV002_Insulation_Resistance",
+      "name": "逆变器2绝缘电阻"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 92.0,
+          "max": 99.5
+        }
+      },
+      "desc": "逆变器2转换效率",
+      "identifier": "INV002_Efficiency",
+      "name": "逆变器2转换效率"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "unit": "kWh"
+        }
+      },
+      "desc": "逆变器2日发电量",
+      "identifier": "INV002_Daily_Energy",
+      "name": "逆变器2日发电量"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "unit": "kWh"
+        }
+      },
+      "desc": "逆变器2总发电量",
+      "identifier": "INV002_Total_Energy",
+      "name": "逆变器2总发电量"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 0.0,
+          "max": 12.0,
+          "unit": "A"
+        }
+      },
+      "desc": "逆变器2组串01电流",
+      "identifier": "INV002_String_01_Current",
+      "name": "逆变器2组串01电流"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 0.0,
+          "max": 12.0,
+          "unit": "A"
+        }
+      },
+      "desc": "逆变器2组串02电流",
+      "identifier": "INV002_String_02_Current",
+      "name": "逆变器2组串02电流"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 0.0,
+          "max": 12.0,
+          "unit": "A"
+        }
+      },
+      "desc": "逆变器2组串03电流",
+      "identifier": "INV002_String_03_Current",
+      "name": "逆变器2组串03电流"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 0.0,
+          "max": 12.0,
+          "unit": "A"
+        }
+      },
+      "desc": "逆变器2组串04电流",
+      "identifier": "INV002_String_04_Current",
+      "name": "逆变器2组串04电流"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 0.0,
+          "max": 12.0,
+          "unit": "A"
+        }
+      },
+      "desc": "逆变器2组串05电流",
+      "identifier": "INV002_String_05_Current",
+      "name": "逆变器2组串05电流"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 0.0,
+          "max": 12.0,
+          "unit": "A"
+        }
+      },
+      "desc": "逆变器2组串06电流",
+      "identifier": "INV002_String_06_Current",
+      "name": "逆变器2组串06电流"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 0.0,
+          "max": 12.0,
+          "unit": "A"
+        }
+      },
+      "desc": "逆变器2组串07电流",
+      "identifier": "INV002_String_07_Current",
+      "name": "逆变器2组串07电流"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 0.0,
+          "max": 12.0,
+          "unit": "A"
+        }
+      },
+      "desc": "逆变器2组串08电流",
+      "identifier": "INV002_String_08_Current",
+      "name": "逆变器2组串08电流"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "bool",
+        "specs": {}
+      },
+      "desc": "逆变器2运行状态",
+      "identifier": "INV002_Status",
+      "name": "逆变器2运行状态"
+    },
+    {
+      "access_mode": "READ_WRITE",
+      "data_type": {
+        "type": "bool",
+        "specs": {}
+      },
+      "desc": "逆变器2启停控制",
+      "identifier": "INV002_Control",
+      "name": "逆变器2启停控制"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 600.0,
+          "max": 850.0,
+          "unit": "V"
+        }
+      },
+      "desc": "逆变器3直流电压",
+      "identifier": "INV003_DC_Voltage",
+      "name": "逆变器3直流电压"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 0.0,
+          "max": 60.0,
+          "unit": "A"
+        }
+      },
+      "desc": "逆变器3直流电流",
+      "identifier": "INV003_DC_Current",
+      "name": "逆变器3直流电流"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "unit": "kW"
+        }
+      },
+      "desc": "逆变器3直流功率",
+      "identifier": "INV003_DC_Power",
+      "name": "逆变器3直流功率"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 380.0,
+          "max": 420.0,
+          "unit": "V"
+        }
+      },
+      "desc": "逆变器3A相电压",
+      "identifier": "INV003_AC_Voltage_A",
+      "name": "逆变器3A相电压"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 380.0,
+          "max": 420.0,
+          "unit": "V"
+        }
+      },
+      "desc": "逆变器3B相电压",
+      "identifier": "INV003_AC_Voltage_B",
+      "name": "逆变器3B相电压"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 380.0,
+          "max": 420.0,
+          "unit": "V"
+        }
+      },
+      "desc": "逆变器3C相电压",
+      "identifier": "INV003_AC_Voltage_C",
+      "name": "逆变器3C相电压"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 0.0,
+          "max": 50.0,
+          "unit": "A"
+        }
+      },
+      "desc": "逆变器3A相电流",
+      "identifier": "INV003_AC_Current_A",
+      "name": "逆变器3A相电流"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 0.0,
+          "max": 50.0,
+          "unit": "A"
+        }
+      },
+      "desc": "逆变器3B相电流",
+      "identifier": "INV003_AC_Current_B",
+      "name": "逆变器3B相电流"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 0.0,
+          "max": 50.0,
+          "unit": "A"
+        }
+      },
+      "desc": "逆变器3C相电流",
+      "identifier": "INV003_AC_Current_C",
+      "name": "逆变器3C相电流"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "unit": "kW"
+        }
+      },
+      "desc": "逆变器3交流有功功率",
+      "identifier": "INV003_AC_Power",
+      "name": "逆变器3交流有功功率"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": -10.0,
+          "max": 10.0,
+          "unit": "kW"
+        }
+      },
+      "desc": "逆变器3无功功率",
+      "identifier": "INV003_Reactive_Power",
+      "name": "逆变器3无功功率"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 0.9,
+          "max": 1.0
+        }
+      },
+      "desc": "逆变器3功率因数",
+      "identifier": "INV003_Power_Factor",
+      "name": "逆变器3功率因数"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 49.8,
+          "max": 50.2,
+          "unit": "Hz"
+        }
+      },
+      "desc": "逆变器3频率",
+      "identifier": "INV003_Frequency",
+      "name": "逆变器3频率"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 20.0,
+          "max": 95.0,
+          "unit": "℃"
+        }
+      },
+      "desc": "逆变器3散热器温度",
+      "identifier": "INV003_Heatsink_Temp",
+      "name": "逆变器3散热器温度"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 10.0,
+          "max": 70.0,
+          "unit": "℃"
+        }
+      },
+      "desc": "逆变器3机柜温度",
+      "identifier": "INV003_Cabinet_Temp",
+      "name": "逆变器3机柜温度"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 15.0,
+          "max": 85.0,
+          "unit": "℃"
+        }
+      },
+      "desc": "逆变器3组件温度",
+      "identifier": "INV003_Module_Temp",
+      "name": "逆变器3组件温度"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 0.5,
+          "max": 5.0
+        }
+      },
+      "desc": "逆变器3绝缘电阻",
+      "identifier": "INV003_Insulation_Resistance",
+      "name": "逆变器3绝缘电阻"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 92.0,
+          "max": 99.5
+        }
+      },
+      "desc": "逆变器3转换效率",
+      "identifier": "INV003_Efficiency",
+      "name": "逆变器3转换效率"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "unit": "kWh"
+        }
+      },
+      "desc": "逆变器3日发电量",
+      "identifier": "INV003_Daily_Energy",
+      "name": "逆变器3日发电量"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "unit": "kWh"
+        }
+      },
+      "desc": "逆变器3总发电量",
+      "identifier": "INV003_Total_Energy",
+      "name": "逆变器3总发电量"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 0.0,
+          "max": 12.0,
+          "unit": "A"
+        }
+      },
+      "desc": "逆变器3组串01电流",
+      "identifier": "INV003_String_01_Current",
+      "name": "逆变器3组串01电流"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 0.0,
+          "max": 12.0,
+          "unit": "A"
+        }
+      },
+      "desc": "逆变器3组串02电流",
+      "identifier": "INV003_String_02_Current",
+      "name": "逆变器3组串02电流"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 0.0,
+          "max": 12.0,
+          "unit": "A"
+        }
+      },
+      "desc": "逆变器3组串03电流",
+      "identifier": "INV003_String_03_Current",
+      "name": "逆变器3组串03电流"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 0.0,
+          "max": 12.0,
+          "unit": "A"
+        }
+      },
+      "desc": "逆变器3组串04电流",
+      "identifier": "INV003_String_04_Current",
+      "name": "逆变器3组串04电流"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 0.0,
+          "max": 12.0,
+          "unit": "A"
+        }
+      },
+      "desc": "逆变器3组串05电流",
+      "identifier": "INV003_String_05_Current",
+      "name": "逆变器3组串05电流"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 0.0,
+          "max": 12.0,
+          "unit": "A"
+        }
+      },
+      "desc": "逆变器3组串06电流",
+      "identifier": "INV003_String_06_Current",
+      "name": "逆变器3组串06电流"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 0.0,
+          "max": 12.0,
+          "unit": "A"
+        }
+      },
+      "desc": "逆变器3组串07电流",
+      "identifier": "INV003_String_07_Current",
+      "name": "逆变器3组串07电流"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 0.0,
+          "max": 12.0,
+          "unit": "A"
+        }
+      },
+      "desc": "逆变器3组串08电流",
+      "identifier": "INV003_String_08_Current",
+      "name": "逆变器3组串08电流"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "bool",
+        "specs": {}
+      },
+      "desc": "逆变器3运行状态",
+      "identifier": "INV003_Status",
+      "name": "逆变器3运行状态"
+    },
+    {
+      "access_mode": "READ_WRITE",
+      "data_type": {
+        "type": "bool",
+        "specs": {}
+      },
+      "desc": "逆变器3启停控制",
+      "identifier": "INV003_Control",
+      "name": "逆变器3启停控制"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 0.0,
+          "max": 10000.0
+        }
+      },
+      "desc": "电站辅助测点0001",
+      "identifier": "PLANT_AUX_0001",
+      "name": "电站辅助测点0001"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 0.0,
+          "max": 10000.0
+        }
+      },
+      "desc": "电站辅助测点0002",
+      "identifier": "PLANT_AUX_0002",
+      "name": "电站辅助测点0002"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 0.0,
+          "max": 10000.0
+        }
+      },
+      "desc": "电站辅助测点0003",
+      "identifier": "PLANT_AUX_0003",
+      "name": "电站辅助测点0003"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 0.0,
+          "max": 10000.0
+        }
+      },
+      "desc": "电站辅助测点0004",
+      "identifier": "PLANT_AUX_0004",
+      "name": "电站辅助测点0004"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 0.0,
+          "max": 10000.0
+        }
+      },
+      "desc": "电站辅助测点0005",
+      "identifier": "PLANT_AUX_0005",
+      "name": "电站辅助测点0005"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 0.0,
+          "max": 10000.0
+        }
+      },
+      "desc": "电站辅助测点0006",
+      "identifier": "PLANT_AUX_0006",
+      "name": "电站辅助测点0006"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 0.0,
+          "max": 10000.0
+        }
+      },
+      "desc": "电站辅助测点0007",
+      "identifier": "PLANT_AUX_0007",
+      "name": "电站辅助测点0007"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 0.0,
+          "max": 10000.0
+        }
+      },
+      "desc": "电站辅助测点0008",
+      "identifier": "PLANT_AUX_0008",
+      "name": "电站辅助测点0008"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 0.0,
+          "max": 10000.0
+        }
+      },
+      "desc": "电站辅助测点0009",
+      "identifier": "PLANT_AUX_0009",
+      "name": "电站辅助测点0009"
+    },
+    {
+      "access_mode": "READ",
+      "data_type": {
+        "type": "float",
+        "specs": {
+          "min": 0.0,
+          "max": 10000.0
+        }
+      },
+      "desc": "电站辅助测点0010",
+      "identifier": "PLANT_AUX_0010",
+      "name": "电站辅助测点0010"
+    }
+  ]
+}
